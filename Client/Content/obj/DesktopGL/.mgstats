@@ -1,0 +1,2 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"D:/Projetos/MonoGame/Tests/Server/Client/Content/square.png","D:/Projetos/MonoGame/Tests/Server/Client/Content/bin/DesktopGL/square.xnb","TextureProcessor","Texture2DContent",320,40085,0,5421844

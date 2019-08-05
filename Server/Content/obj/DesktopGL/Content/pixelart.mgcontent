@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>D:/Projetos/MonoGame/Tests/Server/Server/Content/pixelart.spritefont</SourceFile>
+  <SourceTime>2019-08-04T16:02:11.7593202-03:00</SourceTime>
+  <DestFile>D:/Projetos/MonoGame/Tests/Server/Server/Content/bin/DesktopGL/Content/pixelart.xnb</DestFile>
+  <DestTime>2019-08-04T16:04:22.0784338-03:00</DestTime>
+  <Importer>FontDescriptionImporter</Importer>
+  <ImporterTime>2018-12-08T14:35:54-02:00</ImporterTime>
+  <Processor>FontDescriptionProcessor</Processor>
+  <ProcessorTime>2018-12-08T14:35:54-02:00</ProcessorTime>
+  <Parameters>
+    <Key>PremultiplyAlpha</Key>
+    <Value>True</Value>
+  </Parameters>
+  <Parameters>
+    <Key>TextureFormat</Key>
+    <Value>Compressed</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>
