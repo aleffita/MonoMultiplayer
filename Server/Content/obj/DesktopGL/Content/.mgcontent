@@ -4,8 +4,8 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>D:/Projetos/MonoGame/Tests/Server/Server/Content/pixelart.spritefont</File>
-    <File>D:/Projetos/MonoGame/Tests/Server/Server/Content/square.png</File>
+    <File>C:/Users/TonyStark/Desktop/ProjetoGame/sample/MonoMultiplayer/Server/Content/pixelart.spritefont</File>
+    <File>C:/Users/TonyStark/Desktop/ProjetoGame/sample/MonoMultiplayer/Server/Content/square.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />

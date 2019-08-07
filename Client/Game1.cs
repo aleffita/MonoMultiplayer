@@ -14,10 +14,16 @@ namespace Client
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        private Texture2D square;
+
         private NetManager client;
         private Vector2 poz;
         private float velocity = 10;
+        private string host;
+
+
+        Texture2D player;
+        Vector2 otherPoz;
+        private bool canDraw;
 
         public Game1()
         {
@@ -33,25 +39,40 @@ namespace Client
         /// </summary>
         protected override void Initialize()
         {
+            otherPoz = new Vector2(0, 0);
+            var args = Environment.GetCommandLineArgs();
+            if (args.Length > 1)
+            {
+                host = args[1];
+            }
+            else
+            {
+                host = "localhost";
+            }
+
             // TODO: Add your initialization logic here
             EventBasedNetListener listener = new EventBasedNetListener();
             client = new NetManager(listener);
             client.Start();
-            client.Connect("177.52.28.212" /* host ip or name */, 9050 /* port */, "SomeConnectionKey" /* text key or NetDataWriter */);
+            client.Connect(host /* host ip or name */, 9050 /* port */, "SomeConnectionKey" /* text key or NetDataWriter */);
             poz.Y = 100;
+            poz.X = 300;
+
             listener.NetworkReceiveEvent += (fromPeer, dataReader, deliveryMethod) =>
             {
                 var msg = dataReader.GetString(100 /* max length of string */);
                 Console.WriteLine("We got: {0}", msg);
                 if (!msg.Contains("Hello"))
                 {
-                    poz.X = float.Parse(msg);
+                    var str = msg.Split(',');
+                    otherPoz.X = float.Parse(str[0]);
+                    otherPoz.Y = float.Parse(str[1]);
                 }
-               
+                else { canDraw = true; }
+
 
                 dataReader.Recycle();
             };
-
             base.Initialize();
         }
 
@@ -63,7 +84,7 @@ namespace Client
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            square = Content.Load<Texture2D>("square");
+            player = Content.Load<Texture2D>("square");
             // TODO: use this.Content to load your game content here
         }
 
@@ -85,9 +106,13 @@ namespace Client
         {
             client.PollEvents();
 
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
+            if (Keyboard.GetState().IsKeyDown(Keys.Left))
+                poz.X -= velocity;
+            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+                poz.X += velocity;
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
                 poz.Y -= velocity;
             if (Keyboard.GetState().IsKeyDown(Keys.Down))
@@ -95,7 +120,7 @@ namespace Client
             // TODO: Add your update logic here
 
             NetDataWriter writer = new NetDataWriter();                 // Create writer class
-            writer.Put($"{poz.Y}");                                // Put some string
+            writer.Put($"{poz.X},{poz.Y}");                                // Put some string
             client.SendToAll(writer, DeliveryMethod.Unreliable);             // Send with reliability
 
             base.Update(gameTime);
@@ -110,7 +135,9 @@ namespace Client
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             // TODO: Add your drawing code here
-            spriteBatch.Draw(square, poz, Color.White);
+            spriteBatch.Draw(player, poz, Color.Blue);
+            if (canDraw)
+                spriteBatch.Draw(player, otherPoz, Color.Red);
 
             spriteBatch.End();
             base.Draw(gameTime);

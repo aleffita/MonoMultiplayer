@@ -23,6 +23,9 @@ namespace Server
         private float velocity = 10;
         private NetManager server;
 
+        private Vector2 otherPoz;
+        private bool canDraw;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -62,11 +65,15 @@ namespace Server
             listener.NetworkReceiveEvent += (fromPeer, dataReader, deliveryMethod) =>
             {
                 var msg = dataReader.GetString(100 /* max length of string */);
-                Console.WriteLine("We got: {0}", msg);
+                Console.WriteLine($"We got: {msg} -- with {fromPeer.Ping}");
                 if (!msg.Contains("Hello"))
                 {
-                    poz.Y = float.Parse(msg);
+                    var str = msg.Split(',');
+                    otherPoz.X = float.Parse(str[0]);
+                    otherPoz.Y = float.Parse(str[1]);
+                    canDraw = true;
                 }
+             
 
 
                 dataReader.Recycle();
@@ -129,10 +136,13 @@ namespace Server
                 poz.X -= velocity;
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
                 poz.X += velocity;
-         
+            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+                poz.Y -= velocity;
+            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+                poz.Y += velocity;
 
             NetDataWriter writer = new NetDataWriter();                 // Create writer class
-            writer.Put($"{poz.X}");                                // Put some string
+            writer.Put($"{poz.X},{poz.Y}");                                // Put some string
             server.SendToAll(writer, DeliveryMethod.Unreliable);             // Send with reliability
         }
 
@@ -158,7 +168,9 @@ namespace Server
 
 
 
-            spriteBatch.Draw(square, poz, Color.White);
+            spriteBatch.Draw(square, poz, Color.Blue);
+            if (canDraw)
+                spriteBatch.Draw(square, otherPoz, Color.Red);
 
             spriteBatch.End();
 

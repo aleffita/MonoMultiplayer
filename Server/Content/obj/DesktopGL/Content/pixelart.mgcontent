@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>D:/Projetos/MonoGame/Tests/Server/Server/Content/pixelart.spritefont</SourceFile>
-  <SourceTime>2019-08-04T16:02:11.7593202-03:00</SourceTime>
-  <DestFile>D:/Projetos/MonoGame/Tests/Server/Server/Content/bin/DesktopGL/Content/pixelart.xnb</DestFile>
-  <DestTime>2019-08-04T16:04:22.0784338-03:00</DestTime>
+  <SourceFile>C:/Users/TonyStark/Desktop/ProjetoGame/sample/MonoMultiplayer/Server/Content/pixelart.spritefont</SourceFile>
+  <SourceTime>2019-08-05T14:47:46.1757375-03:00</SourceTime>
+  <DestFile>C:/Users/TonyStark/Desktop/ProjetoGame/sample/MonoMultiplayer/Server/Content/bin/DesktopGL/Content/pixelart.xnb</DestFile>
+  <DestTime>2019-08-05T14:52:36.481071-03:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
   <ImporterTime>2018-12-08T14:35:54-02:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>
